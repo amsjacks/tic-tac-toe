@@ -14,7 +14,7 @@ def run_game(game_count, p1, p2):
         if turn_count % 2 == 0:
             square = input("{}, please enter the code for where you would like to place your X (e.g., A1, C2): "
                            .format(x_player))
-            move("X", square)
+            move("X", square) # Could put the symbol in a global var so that can be customized
         else:
             square = input("{}, please enter the code for where you would like to place your O (e.g., A1, C2): "
                            .format(o_player))
@@ -55,7 +55,8 @@ def clear_board():
             "C1": " ", "C2": " ", "C3": " "}
 
 def move(symbol, square):
-    pass
+    global board
+    board[square] = symbol
 
 def x_win():
     pass
@@ -66,6 +67,7 @@ def o_win():
 
 # Set up
 board = {}
+
 print("Welcome to Tic Tac Toe!")
 p1 = input("First player, please enter your name: ")
 print("Thank you {}!".format(p1))
@@ -74,5 +76,6 @@ print("Thank you, {}!".format(p2))
 
 # Run the first game
 run_game(0, p1, p2)
+
 
 
