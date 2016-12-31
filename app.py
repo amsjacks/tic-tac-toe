@@ -14,7 +14,7 @@ def run_game(game_count, p1, p2):
         if turn_count % 2 == 0:
             square = input("{}, please enter the code for where you would like to place your X (e.g., A1, C2): "
                            .format(x_player))
-            move("X", square) # Could put the symbol in a global var so that can be customized
+            move("X", square)  # Could put the symbol in a global var so that can be customized
         else:
             square = input("{}, please enter the code for where you would like to place your O (e.g., A1, C2): "
                            .format(o_player))
@@ -58,7 +58,7 @@ def move(symbol, square):
     global board
     board[square] = symbol
 
-
+# Tests whether the player marking with a particular symbol has won
 def win(symbol):
     symb_win = False
     if board["A1"] == symbol:
