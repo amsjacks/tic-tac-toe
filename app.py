@@ -10,7 +10,7 @@ def run_game(game_count, p1, p2):
         o_player = p1
 
     show_board()
-    while (not win("X")) and (not win("O")):
+    while (not win("X")) and (not win("O") and (not is_tied())):
         if turn_count % 2 == 0:
             square = input("{}, please enter the code for where you would like to place your X (e.g., A1, C2): "
                            .format(x_player))
@@ -24,7 +24,9 @@ def run_game(game_count, p1, p2):
         turn_count += 1
         show_board()
 
-    if win("X"):
+    if is_tied():
+        print("The game is tied!")
+    elif win("X"):
         print("Congratulations, {}! You have won!".format(x_player))
     else:
         print("Congratulations, {}! You have won!".format(o_player))
@@ -73,6 +75,9 @@ def win(symbol):
     elif board["C3"] == symbol:
         symb_win = (board["A3"] == symbol and board["B3"] == symbol) or (board["C1"] == symbol and board["C2"] == symbol)
     return symb_win
+
+def is_tied():
+    return (not " " in board.values()) and (not win("X") and (not win("O")))
 
 
 # Set up global value
