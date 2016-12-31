@@ -10,7 +10,7 @@ def run_game(game_count, p1, p2):
         o_player = p1
 
     show_board()
-    while (not x_win()) and (not o_win()):
+    while (not win("X")) and (not win("O")):
         if turn_count % 2 == 0:
             square = input("{}, please enter the code for where you would like to place your X (e.g., A1, C2): "
                            .format(x_player))
@@ -22,7 +22,7 @@ def run_game(game_count, p1, p2):
         turn_count += 1
         show_board()
 
-    if x_win():
+    if win("X"):
         print("Congratulations, {}! You have won!".format(x_player))
     else:
         print("Congratulations, {}! You have won!".format(o_player))
@@ -58,16 +58,24 @@ def move(symbol, square):
     global board
     board[square] = symbol
 
-def x_win():
-    pass
 
-def o_win():
-    pass
+def win(symbol):
+    symb_win = False
+    if board["A1"] == symbol:
+        symb_win = (board["A2"] == symbol and board["A3"] == symbol) or (
+            board["B2"] == symbol and board["C3"] == symbol) or (board["B1"] == symbol and board["C1"] == symbol)
+    elif board["B2"] == symbol:
+        symb_win = (board["B1"] == symbol and board["B3"] == symbol) or (
+            board["A2"] == symbol and board["C2"] == symbol) or (board["C1"] == symbol and board["A3"] == symbol)
+    elif board["C3"] == symbol:
+        symb_win = (board["A3"] == symbol and board["B3"] == symbol) or (board["C1"] == symbol and board["C2"] == symbol)
+    return symb_win
 
 
-# Set up
+# Set up global value
 board = {}
 
+# Prompt users for their names
 print("Welcome to Tic Tac Toe!")
 p1 = input("First player, please enter your name: ")
 print("Thank you {}!".format(p1))
