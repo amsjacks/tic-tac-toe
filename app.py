@@ -14,10 +14,12 @@ def run_game(game_count, p1, p2):
         if turn_count % 2 == 0:
             square = input("{}, please enter the code for where you would like to place your X (e.g., A1, C2): "
                            .format(x_player))
-            move("X", square)  # Could put the symbol in a global var so that can be customized
+            # TODO: Add exception if input is not a valid square
+            move("X", square)  # TODO: put the symbol in a variable so that can be customized by player
         else:
             square = input("{}, please enter the code for where you would like to place your O (e.g., A1, C2): "
                            .format(o_player))
+            # TODO: Add exception if input is not a valid square
             move("O", square)
         turn_count += 1
         show_board()
@@ -56,6 +58,7 @@ def clear_board():
 
 def move(symbol, square):
     global board
+    # TODO: throw exception if the square is already occupied
     board[square] = symbol
 
 # Tests whether the player marking with a particular symbol has won
