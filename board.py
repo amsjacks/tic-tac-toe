@@ -8,6 +8,12 @@ class Board(object):
         self.x_symb = x_symb
         self.y_symb = y_symb
 
+    def at_position(self, square):
+        return self.positions[square]
+
+    def is_full(self):
+        return not " " in self.positions
+
     def show_board(self):
         print("      A     B     C  ")
         print("   |_____|_____|_____")

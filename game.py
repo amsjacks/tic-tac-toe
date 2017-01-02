@@ -1,8 +1,8 @@
 from board import Board
 
-class Game(object):
 
-    def __init__(self,p1,p2,menu,game_count,x_symb="X",y_symb="y"):
+class Game(object):
+    def __init__(self, p1, p2, menu, game_count, x_symb="X", y_symb="y"):
         # Turn taking for successive games
         self.menu = menu
         if not game_count % 2 == 0:
@@ -14,8 +14,7 @@ class Game(object):
         self.x_symb = x_symb
         self.y_symb = y_symb
         self.turn_count = 0
-        self.board = Board(self.x_symb,self.y_symb)
-
+        self.board = Board(self.x_symb, self.y_symb)
 
     def run_game(self):
         self.board.show_board()
@@ -35,6 +34,7 @@ class Game(object):
             print("Congratulations, {}! You have won!".format(self.x_player))
         else:
             print("Congratulations, {}! You have won!".format(self.y_player))
+        del self
 
     def __del__(self):
         play_again = input("Would you like to play again? (Y/N) : ")
@@ -44,7 +44,7 @@ class Game(object):
             print("Goodbye!")
 
     # Prompt the user for their next move
-    def get_move(self,player):
+    def get_move(self, player):
         square = ""
         while not self.board.is_valid_square(square):
             input("{}, please enter the code for where you would like to place your marker (e.g., A1, C2): "
@@ -53,19 +53,21 @@ class Game(object):
             return square
 
     # Tests whether the player marking with a particular symbol has won
-    def win(self,symbol):
+    def win(self, symbol):
         symb_win = False
-        if self.board["A1"] == symbol:
-            self.board = (self.board["A2"] == symbol and self.board["A3"] == symbol) or (
-                self.board["B2"] == symbol and self.board["C3"] == symbol) or (self.board["B1"] == symbol and self.board["C1"] == symbol)
+        if self.board.at_position("A1") == symbol:
+            symb_win = (self.board.at_position["A2"] == symbol and self.board.at_position["A3"] == symbol) or (
+                self.board.at_position["B2"] == symbol and self.board["C3"] == symbol) or (
+                       self.board["B1"] == symbol and self.board["C1"] == symbol)
         elif self.board["B2"] == symbol:
-            symb_win = (self.board["B1"] == symbol and self.board["B3"] == symbol) or (
-                self.board["A2"] == symbol and self.board["C2"] == symbol) or (self.board["C1"] == symbol and self.board["A3"] == symbol)
-        elif self.board["C3"] == symbol:
-            symb_win = (self.board["A3"] == symbol and self.board["B3"] == symbol) or (
-                self.board["C1"] == symbol and self.board["C2"] == symbol)
+            symb_win = (self.board.at_position["B1"] == symbol and self.board.at_position["B3"] == symbol) or (
+                self.board.at_position["A2"] == symbol and self.board.at_position["C2"] == symbol) or (
+                       self.board.at_position["C1"] == symbol and self.board["A3"] == symbol)
+        elif self.board.at_position["C3"] == symbol:
+            symb_win = (self.board.at_position["A3"] == symbol and self.board.at_position["B3"] == symbol) or (
+                self.board.at_position["C1"] == symbol and self.board.at_position["C2"] == symbol)
         return symb_win
 
     # Tests whether the game is tied
     def is_tied(self):
-        return (not " " in self.board.values()) and (not self.win("X") and (not self.win("O")))
+        return (self.board.is_full()) and (not self.win("X") and (not self.win("O")))
