@@ -1,11 +1,9 @@
 from board import Board
-from menu import Menu
 
 class Game(object):
 
-    def __init__(self,p1,p2,menu,game_count=1,x_symb="X",y_symb="y"):
+    def __init__(self,p1,p2,menu,game_count,x_symb="X",y_symb="y"):
         # Turn taking for successive games
-        self.game_count=game_count
         self.menu = menu
         if not game_count % 2 == 0:
             self.x_player = p1
