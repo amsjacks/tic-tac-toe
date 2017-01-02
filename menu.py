@@ -12,9 +12,12 @@ class Menu(object):
     def run_menu(self):
         print("-------TIC TAC TOE-------")
         print("  1.  Play tic-tac-toe")
+        '''
+        TODO: Implement user class and add this functionality
         print("  2.  View {}'s profile".format(self.p1))
         print("  3.  View {}'s profile".format(self.p2))
         print("  4.  View scores")
+        '''
         response = input("Please type the number of what you would like to do: ")
         if response[0] == "1":
             self.game_count += 1
@@ -22,4 +25,4 @@ class Menu(object):
             game.run_game()
         else:
             print("I'm sorry, but that option is not available at this time.")
-            self.run_menu(self.game_count)
+            self.run_menu()
