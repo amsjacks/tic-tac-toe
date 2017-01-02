@@ -47,8 +47,9 @@ class Game(object):
     def get_move(self, player):
         square = ""
         while not self.board.is_valid_square(square):
-            input("{}, please enter the code for where you would like to place your marker (e.g., A1, C2): "
-                  .format(player))
+            from_player = input("{}, please enter the code for where you would like to place your marker (e.g., A1, "
+                                "C2): ".format(player))
+            square = from_player.upper()
         return square
 
     # Tests whether the player marking with a particular symbol has won
