@@ -12,7 +12,7 @@ class Board(object):
         return self.positions[square]
 
     def is_full(self):
-        return not " " in self.positions
+        return " " in self.positions.items()
 
     def is_valid_square(self, square):
         return square in Board.clean_board
