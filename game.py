@@ -1,10 +1,13 @@
 from board import Board
+from menu import Menu
 
 class Game(object):
 
-    def __init__(self,p1,p2,game_count=1,x_symb="X",y_symb="y"):
+    def __init__(self,p1,p2,menu,game_count=1,x_symb="X",y_symb="y"):
         # Turn taking for successive games
-        if not game_count %2 == 0:
+        self.game_count=game_count
+        self.menu = menu
+        if not game_count % 2 == 0:
             self.x_player = p1
             self.y_player = p2
         else:
@@ -20,14 +23,11 @@ class Game(object):
         self.board.show_board()
         while (not self.win(self.x_symb)) and (not self.win(self.y_symb) and (not self.is_tied())):
             if self.turn_count % 2 == 0:
-                square = input("{}, please enter the code for where you would like to place your {} (e.g., A1, C2): "
-                               .format(self.x_player,self.x_symb))
-                # TODO: Add exception if input is not a valid square
+                square = self.get_move(self.x_player)
                 self.board.move(self.x_symb, square)
+
             else:
-                square = input("{}, please enter the code for where you would like to place your {} (e.g., A1, C2): "
-                               .format(self.y_player,self.y_symb))
-                # TODO: Add exception if input is not a valid square
+                square = self.get_move(self.y_player)
                 self.board.move(self.y_symb, square)
             self.turn_count += 1
             self.board.show_board()
@@ -37,6 +37,22 @@ class Game(object):
             print("Congratulations, {}! You have won!".format(self.x_player))
         else:
             print("Congratulations, {}! You have won!".format(self.y_player))
+
+    def __del__(self):
+        play_again = input("Would you like to play again? (Y/N) : ")
+        if play_again.casefold() == "y".casefold():
+            self.menu.run_menu()
+        else:
+            print("Goodbye!")
+
+    # Prompt the user for their next move
+    def get_move(self,player):
+        square = ""
+        while not self.board.is_valid_square(square):
+            input("{}, please enter the code for where you would like to place your marker (e.g., A1, C2): "
+                  .format(player))
+        else:
+            return square
 
     # Tests whether the player marking with a particular symbol has won
     def win(self,symbol):
