@@ -1,7 +1,7 @@
 class Board(object):
     clean_board = {"A1": " ", "A2": " ", "A3": " ",
-                          "B1": " ", "B2": " ", "B3": " ",
-                          "C1": " ", "C2": " ", "C3": " "}
+                   "B1": " ", "B2": " ", "B3": " ",
+                   "C1": " ", "C2": " ", "C3": " "}
 
     def __init__(self, x_symb="X", y_symb="O"):
         self.positions = Board.clean_board
@@ -13,6 +13,9 @@ class Board(object):
 
     def is_full(self):
         return not " " in self.positions
+
+    def is_valid_square(self, square):
+        return square in Board.clean_board
 
     def show_board(self):
         print("      A     B     C  ")
@@ -31,6 +34,5 @@ class Board(object):
         if self.positions[square] == " ":
             self.positions[square] = symbol
         else:
-            new_square=input("I'm sorry, that square is already occupied. Please select another:")
-            self.move(symbol,new_square)
-
+            new_square = input("I'm sorry, that square is already occupied. Please select another:")
+            self.move(symbol, new_square)
